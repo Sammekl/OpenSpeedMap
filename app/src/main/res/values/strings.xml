@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">OpenSpeedMap</string>
+    <string name="empty"></string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Actions -->
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Prefs -->
+    <string name="pref_username_title">Username</string>
+    <string name="pref_username_key">userName</string>
+
+    <string name="pref_password_key">password</string>
+    <string name="pref_password_title">Password</string>
+
 </resources>
