@@ -1,4 +1,4 @@
-package com.sammekl.openspeedmap;
+package com.sammekl.openspeedmap.activities;
 
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+
+import com.sammekl.openspeedmap.R;
 
 
 public class SettingsActivity extends ActionBarActivity {

@@ -17,4 +17,8 @@
     <string name="pref_password_key">password</string>
     <string name="pref_password_title">Password</string>
 
+    <!-- Dialogs -->
+    <string name="dialog_get_location">Your location is being determined…</string>
+
+
 </resources>
