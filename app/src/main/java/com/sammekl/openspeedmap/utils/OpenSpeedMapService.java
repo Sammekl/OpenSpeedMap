@@ -12,5 +12,7 @@ public class OpenSpeedMapService {
     public void getHighwayData(final Activity activity, int range, double latitude, double longitude) {
         final RoadTask roadTask = new RoadTask(activity);
         String url = String.format(Constants.PREF_API_GET_ROADS_URL, range, latitude, longitude);
+        roadTask.setUrl(url);
+        roadTask.execute();
     }
 }

@@ -39,4 +39,6 @@ public class Constants {
     public static final String PREF_API_NODE_ID = "id";
     public static final String PREF_API_NODE_LAT = "lat";
     public static final String PREF_API_NODE_LON = "lon";
+
+
 }

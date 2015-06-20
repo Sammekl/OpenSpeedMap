@@ -24,6 +24,10 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".activities.WaysActivity"
+            android:label="@string/title_activity_ways" >
+        </activity>
     </application>
 
 </manifest>

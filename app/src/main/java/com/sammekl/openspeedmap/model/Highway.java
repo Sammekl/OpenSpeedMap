@@ -76,4 +76,9 @@ public class Highway {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return roadName + " - " + id;
+    }
 }

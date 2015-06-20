@@ -2,6 +2,7 @@ package com.sammekl.openspeedmap.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,6 +21,7 @@ import com.sammekl.openspeedmap.R;
 import com.sammekl.openspeedmap.model.Highway;
 import com.sammekl.openspeedmap.model.Node;
 import com.sammekl.openspeedmap.utils.OpenSpeedMapService;
+import com.sammekl.openspeedmap.utils.TempStorage;
 
 import java.util.List;
 
@@ -51,6 +53,8 @@ public class MainActivity extends ActionBarActivity {
 
         initVariables();
         setSeekBarListener();
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
     @Override
@@ -73,10 +77,10 @@ public class MainActivity extends ActionBarActivity {
     // ====================================
     // Public methods
     // ====================================
+
     public void searchWays(View view) {
-        if (view.getId() == R.id.search_button) {
-            startLocationListener();
-        }
+        startLocationListener();
+
     }
 
     /**
@@ -103,6 +107,19 @@ public class MainActivity extends ActionBarActivity {
         }
         this.allHighways = highways;
     }
+
+
+    /**
+     * Invoked from RoadTask, start the List Activity.
+     */
+    public void startDisplayActivity() {
+        if(TempStorage.getAllHighways() != null && TempStorage.getAllHighways().size() > 0 && TempStorage.getAllNodes() != null && TempStorage.getAllNodes().size() > 0) {
+            this.startActivity(new Intent(this, WaysActivity.class));
+            this.overridePendingTransition(R.anim.right_slide_in, R.anim.right_slide_out);
+        }
+
+    }
+
     // ====================================
     // Private methods
     // ====================================
@@ -112,6 +129,7 @@ public class MainActivity extends ActionBarActivity {
         seekBar = (SeekBar) findViewById(R.id.seekRange);
         progressDecimal = (TextView) findViewById(R.id.progressDecimal);
         progressDecimal.setText(seekBar.getProgress() + " meters");
+        progress = seekBar.getProgress();
     }
 
     private void setSeekBarListener() {
@@ -147,7 +165,6 @@ public class MainActivity extends ActionBarActivity {
                 if (locationListener != null) {
                     locationManager.removeUpdates(locationListener);
                 }
-
             }
 
             @Override

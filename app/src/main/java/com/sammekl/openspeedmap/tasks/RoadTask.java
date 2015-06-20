@@ -1,12 +1,18 @@
 package com.sammekl.openspeedmap.tasks;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
+import com.sammekl.openspeedmap.R;
 import com.sammekl.openspeedmap.activities.MainActivity;
+import com.sammekl.openspeedmap.activities.SettingsActivity;
+import com.sammekl.openspeedmap.activities.WaysActivity;
 import com.sammekl.openspeedmap.helpers.JSONHelper;
 import com.sammekl.openspeedmap.model.Highway;
 import com.sammekl.openspeedmap.model.Node;
+import com.sammekl.openspeedmap.utils.Constants;
+import com.sammekl.openspeedmap.utils.TempStorage;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -74,12 +80,14 @@ public class RoadTask extends BackgroundTask {
     public void doProcessResult(String result) {
         List<Node> nodes = JSONHelper.getNodesFromResult(result);
         if (nodes != null && nodes.size() > 0) {
-            mainActivity.setAllNodes(nodes);
+            TempStorage.setAllNodes(nodes);
         }
         List<Highway> highways = JSONHelper.getHighwaysFromResult(result);
         if (highways != null && highways.size() > 0) {
-            mainActivity.setAllHighways(highways);
+            TempStorage.setAllHighways(highways);
         }
+        mainActivity.startDisplayActivity();
+
     }
     public void setUrl(String url) {
         this.url = url;
