@@ -29,7 +29,14 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class XMLHelper {
 
-    public static String parseDom(String xmlToParse, int maxspeed) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    /**
+     * Parse the XML and add the maxspeed attribute
+     * @param xmlToParse xml to parse
+     * @param maxspeed the maxspeed to add
+     * @return The new XML containing a way
+     * @throws Exception
+     */
+    public static String parseDom(String xmlToParse, int maxspeed) throws Exception {
         String output = "";
         DocumentBuilder newDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = newDocumentBuilder.parse(new ByteArrayInputStream(xmlToParse.getBytes()));
@@ -42,7 +49,6 @@ public class XMLHelper {
         Node node = doc.importNode(doc2.getDocumentElement(), true);
 
         nodes.item(0).appendChild(node);
-
 
         //Set up the transformer to write the output string
         TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -68,6 +74,6 @@ public class XMLHelper {
         transformer.transform(source, result);
         Log.i("XMLHelper", sw.toString());
 
-        return output;
+        return sw.toString();
     }
 }

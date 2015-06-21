@@ -18,21 +18,24 @@ public class OpenSpeedMapService {
         roadTask.setUrl(url);
         roadTask.execute();
     }
-    public void getHighwayXml(final Activity activity, Highway highway) {
+    public void getHighwayXml(final Activity activity, Highway highway, int maxspeed) {
         final GetHighwayTask getHighwayTask = new GetHighwayTask(activity);
         String url = Constants.PREF_API_GET_WAY + highway.getId();
         getHighwayTask.setUrl(url);
         getHighwayTask.setUsername("sammekleijn@gmail.com");
         getHighwayTask.setPassword("zwTjD1QMIzYVOn152oIv");
+        getHighwayTask.setMaxspeed(maxspeed);
         getHighwayTask.execute();
     }
 
-    public void updateSpeed(Activity activity, Highway highway, int maxspeed, String xml) {
+    public void updateSpeed(Activity activity, Highway highway, String xml) {
         final UpdateTask updateTask = new UpdateTask(activity);
         String url = Constants.PREF_API_UPDATE_WAY + highway.getId();
         updateTask.setUrl(url);
         updateTask.setUsername("sammekleijn@gmail.com");
         updateTask.setPassword("zwTjD1QMIzYVOn152oIv");
+        updateTask.setXml(xml);
+        updateTask.execute();
 
     }
 }

@@ -46,7 +46,7 @@ public class UpdateTask  extends BackgroundTask {
         StringBuilder stringBuilder = new StringBuilder();
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("Authorization", "Basic " + Base64.encodeToString("user:password".getBytes(), Base64.NO_WRAP));
+        httpPost.addHeader("Authorization", "Basic " + Base64.encodeToString((userName + ":" + password).getBytes(), Base64.NO_WRAP));
 
         try {
             // Set XML

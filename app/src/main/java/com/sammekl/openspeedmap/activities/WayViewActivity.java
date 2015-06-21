@@ -65,7 +65,7 @@ public class WayViewActivity extends ActionBarActivity {
     }
 
     public void updateSpeed(String xml) {
-        openSpeedMapService.updateSpeed(getActivity(), receivedHighway, maxspeed, xml);
+        openSpeedMapService.updateSpeed(getActivity(), receivedHighway, xml);
     }
 
     // ====================================
@@ -111,7 +111,7 @@ public class WayViewActivity extends ActionBarActivity {
                 if (maxspeed < 15 || maxspeed > 130) {
                     Toast.makeText(getActivity(), "Maxspeed must be between 15 and 130", Toast.LENGTH_SHORT).show();
                 } else {
-                    openSpeedMapService.getHighwayXml(getActivity(), receivedHighway);
+                    openSpeedMapService.getHighwayXml(getActivity(), receivedHighway, maxspeed);
                 }
             }
         });

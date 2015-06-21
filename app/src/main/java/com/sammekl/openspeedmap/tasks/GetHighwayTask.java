@@ -47,7 +47,7 @@ public class GetHighwayTask extends BackgroundTask {
         StringBuilder stringBuilder = new StringBuilder();
         HttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        httpGet.addHeader("Authorization", "Basic " + Base64.encodeToString("user:password".getBytes(), Base64.NO_WRAP));
+        httpGet.addHeader("Authorization", "Basic " + Base64.encodeToString((userName + ":" + password).getBytes(), Base64.NO_WRAP));
         try {
             HttpResponse response = httpClient.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
@@ -78,6 +78,7 @@ public class GetHighwayTask extends BackgroundTask {
         Log.e(getClass().getSimpleName(), "Result: " + result);
         try {
             String parsed = XMLHelper.parseDom(result, maxspeed);
+            wayViewActivity.updateSpeed(parsed);
         } catch (Exception e) {
             Log.e(getClass().getSimpleName(), e.getMessage());
         }
