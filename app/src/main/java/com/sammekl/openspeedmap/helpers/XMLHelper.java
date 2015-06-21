@@ -18,6 +18,7 @@ import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -37,7 +38,6 @@ public class XMLHelper {
      * @throws Exception
      */
     public static String parseDom(String xmlToParse, int maxspeed) throws Exception {
-        String output = "";
         DocumentBuilder newDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = newDocumentBuilder.parse(new ByteArrayInputStream(xmlToParse.getBytes()));
 
@@ -50,30 +50,16 @@ public class XMLHelper {
 
         nodes.item(0).appendChild(node);
 
-        //Set up the transformer to write the output string
-        TransformerFactory tFactory = TransformerFactory.newInstance();
-        Transformer transformer = tFactory.newTransformer();
-        transformer.setOutputProperty("indent", "yes");
-        StringWriter sw = new StringWriter();
-        StreamResult result = new StreamResult(sw);
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-        //Find the first child node - this could be done with xpath as well
-        NodeList nl = doc.getDocumentElement().getChildNodes();
-        DOMSource source = null;
-        for(int x = 0;x < nl.getLength();x++)
-        {
-            Node e = nl.item(x);
-            if(e instanceof Element)
-            {
-                source = new DOMSource(e);
-                break;
-            }
-        }
-
-        //Do the transformation and output
+        StreamResult result = new StreamResult(new StringWriter());
+        DOMSource source = new DOMSource(doc);
         transformer.transform(source, result);
-        Log.i("XMLHelper", sw.toString());
 
-        return sw.toString();
+        String xmlOutput = result.getWriter().toString();
+        Log.i("XMLHelper",xmlOutput);
+
+        return xmlOutput;
     }
 }
