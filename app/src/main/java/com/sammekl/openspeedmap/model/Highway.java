@@ -1,12 +1,13 @@
 package com.sammekl.openspeedmap.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by Samme on 20-6-2015.
  */
-public class Highway {
+public class Highway implements Serializable {
 
     private long id;
     private int lanes;

@@ -18,6 +18,8 @@ public class Constants {
             "[name]" +
             "[highway];%%3E;);out;";
 
+    public static final String PREF_OSM_WAY_DISPLAY_URL = "http://www.openstreetmap.org/way/";
+
     public static final String PREF_API_ELEMENTS = "elements";
     public static final String PREF_API_TYPE = "type";
 
@@ -40,5 +42,7 @@ public class Constants {
     public static final String PREF_API_NODE_LAT = "lat";
     public static final String PREF_API_NODE_LON = "lon";
 
+    // PutExtra //
+    public static final String PREF_EXTRA_HIGHWAY = "highway";
 
 }
