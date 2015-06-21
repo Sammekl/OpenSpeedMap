@@ -19,6 +19,9 @@ public class Constants {
             "[highway];%%3E;);out;";
 
     public static final String PREF_OSM_WAY_DISPLAY_URL = "http://www.openstreetmap.org/way/";
+    public static final String PREF_API_GET_WAY = "http://openstreetmap.org/api/0.6/way/";
+    public static final String PREF_API_UPDATE_WAY = "http://openstreetmap.org/api/0.6/way/";
+    public static final String PREF_API_MAX_SPEED_UPDATE = "<tag k=\"maxspeed\" v=\"%s\"/>";
 
     public static final String PREF_API_ELEMENTS = "elements";
     public static final String PREF_API_TYPE = "type";
@@ -44,5 +47,4 @@ public class Constants {
 
     // PutExtra //
     public static final String PREF_EXTRA_HIGHWAY = "highway";
-
 }

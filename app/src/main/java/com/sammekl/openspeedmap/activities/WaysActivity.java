@@ -40,6 +40,22 @@ public class WaysActivity extends ActionBarActivity {
         setOnClickListener();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            this.startActivity(new Intent(this, SettingsActivity.class));
+            this.overridePendingTransition(R.anim.right_slide_in, R.anim.right_slide_out);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // ====================================
     // Private methods

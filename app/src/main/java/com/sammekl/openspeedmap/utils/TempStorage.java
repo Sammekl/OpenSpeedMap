@@ -13,6 +13,8 @@ public class TempStorage {
     public static List<Highway> allHighways;
     public static List<Node> allNodes;
 
+    public static String updateCall = "<osm> %s </osm>";
+
     public static List<Highway> getAllHighways() {
         return allHighways;
     }
@@ -27,5 +29,13 @@ public class TempStorage {
 
     public static void setAllNodes(List<Node> allNodes) {
         TempStorage.allNodes = allNodes;
+    }
+
+    public static String getUpdateCall() {
+        return updateCall;
+    }
+
+    public static void setUpdateCall(String updateCall) {
+        TempStorage.updateCall = String.format(TempStorage.updateCall, updateCall);
     }
 }

@@ -4,13 +4,14 @@
     <EditTextPreference
         android:defaultValue="@string/empty"
         android:key="@string/pref_username_key"
-        android:summary="%s"
+        android:summary="Your OpenStreetMap username"
         android:title="@string/pref_username_title" />
 
     <EditTextPreference
         android:defaultValue=""
         android:key="@string/pref_password_key"
-        android:summary="%s"
-        android:title="@string/pref_password_title" />
+        android:summary="Your OpenStreetMap password"
+        android:title="@string/pref_password_title"
+        android:inputType="textPassword"/>
 
 </PreferenceScreen>

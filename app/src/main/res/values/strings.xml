@@ -19,6 +19,7 @@
 
     <!-- Dialogs -->
     <string name="dialog_get_location">Your location is being determined…</string>
+    <string name="dialog_get_ways">Searching for ways in your area…</string>
     <string name="title_activity_ways">All ways</string>
 
     <string name="hello_world">Hello world!</string>

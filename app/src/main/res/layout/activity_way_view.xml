@@ -18,6 +18,7 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:text="Set max speed"
-        android:layout_below="@id/webView"/>
+        android:layout_below="@id/webView"
+        android:onClick="setMaxSpeed"/>
 
 </LinearLayout>
