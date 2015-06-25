@@ -5,17 +5,18 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.InputType;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.sammekl.openspeedmap.R;
@@ -25,9 +26,10 @@ import com.sammekl.openspeedmap.utils.OpenSpeedMapService;
 
 public class WayViewActivity extends ActionBarActivity {
 
-    WebView webView;
-    Highway receivedHighway;
-    int maxspeed;
+    private WebView webView;
+    private Highway receivedHighway;
+    private int maxspeed;
+    int spinnerSelection;
     OpenSpeedMapService openSpeedMapService = new OpenSpeedMapService();
 
     @Override
@@ -86,7 +88,7 @@ public class WayViewActivity extends ActionBarActivity {
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
                 getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.left_slide_out);
             }
         });
@@ -121,27 +123,28 @@ public class WayViewActivity extends ActionBarActivity {
     private void showAlertDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
+
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.my_dialog_layout, null);
+        alert.setView(promptsView);
+
+        // Set message
         alert.setTitle("Set maxspeed");
         alert.setMessage("Set maxspeed for " + receivedHighway.getRoadName());
+        final AlertDialog alertDialog = alert.create();
 
-        // Create new layout to change width of input
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10, 0, 10, 0);
-
-        // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        layout.addView(input, params);
-
-        alert.setView(layout);
+        // Set a Spinner view to get user input
+        final Spinner input = (Spinner) promptsView.findViewById(R.id.spinner_id);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.speed_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        input.setAdapter(adapter);
+        input.setSelection(0);
+        input.setOnItemSelectedListener(new OnSpinnerItemClicked());
 
         alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                maxspeed = Integer.parseInt(input.getText().toString());
+                maxspeed = spinnerSelection;
                 Log.e(getClass().getSimpleName(), "Maxspeed: " + maxspeed);
                 if (maxspeed < 15 || maxspeed > 130) {
                     Toast.makeText(getActivity(), "Maxspeed must be between 15 and 130", Toast.LENGTH_SHORT).show();
@@ -158,4 +161,15 @@ public class WayViewActivity extends ActionBarActivity {
     }
 
 
+    private class OnSpinnerItemClicked implements android.widget.AdapterView.OnItemSelectedListener {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            spinnerSelection = Integer.parseInt((String) parent.getItemAtPosition(position));
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
 }
