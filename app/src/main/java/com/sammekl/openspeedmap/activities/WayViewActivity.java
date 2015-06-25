@@ -39,6 +39,9 @@ public class WayViewActivity extends ActionBarActivity {
 
         initVariables();
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+
     }
 
     @Override
@@ -79,7 +82,7 @@ public class WayViewActivity extends ActionBarActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("Update succesful");
-        alert.setMessage("Way with name '" + receivedHighway.getRoadName() + "' has been updated. It can take up to one hour for the changes to take effect");
+        alert.setMessage("Way with name '" + receivedHighway.getRoadName() + "' has been updated. It can take up to one hour for the changes to take effect.");
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
