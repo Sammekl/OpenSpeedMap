@@ -2,6 +2,7 @@ package com.sammekl.openspeedmap.utils;
 
 import android.app.Activity;
 
+import com.sammekl.openspeedmap.helpers.PreferenceHelper;
 import com.sammekl.openspeedmap.model.Highway;
 import com.sammekl.openspeedmap.tasks.GetHighwayTask;
 import com.sammekl.openspeedmap.tasks.RoadTask;
@@ -22,8 +23,8 @@ public class OpenSpeedMapService {
         final GetHighwayTask getHighwayTask = new GetHighwayTask(activity);
         String url = Constants.PREF_API_GET_WAY + highway.getId();
         getHighwayTask.setUrl(url);
-        getHighwayTask.setUsername("sammekleijn@gmail.com");
-        getHighwayTask.setPassword("zwTjD1QMIzYVOn152oIv");
+        getHighwayTask.setUsername(PreferenceHelper.readDefaultPreference("userName", activity));
+        getHighwayTask.setPassword(PreferenceHelper.readDefaultPreference("password", activity));
         getHighwayTask.setMaxspeed(maxspeed);
         getHighwayTask.execute();
     }
@@ -32,8 +33,8 @@ public class OpenSpeedMapService {
         final UpdateTask updateTask = new UpdateTask(activity);
         String url = Constants.PREF_API_UPDATE_WAY + highway.getId();
         updateTask.setUrl(url);
-        updateTask.setUsername("sammekleijn@gmail.com");
-        updateTask.setPassword("zwTjD1QMIzYVOn152oIv");
+        updateTask.setUsername(PreferenceHelper.readDefaultPreference("userName", activity));
+        updateTask.setPassword(PreferenceHelper.readDefaultPreference("password", activity));
         updateTask.setXml(xml);
         updateTask.execute();
 

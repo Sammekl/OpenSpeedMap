@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Base64;
 import android.util.Log;
 
+import com.sammekl.openspeedmap.R;
 import com.sammekl.openspeedmap.activities.WayViewActivity;
 import com.sammekl.openspeedmap.helpers.XMLHelper;
 
@@ -83,6 +84,12 @@ public class GetHighwayTask extends BackgroundTask {
             Log.e(getClass().getSimpleName(), e.getMessage());
         }
     }
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        showLoadingProgressDialog(activity.getString(R.string.dialog_update_way));
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }

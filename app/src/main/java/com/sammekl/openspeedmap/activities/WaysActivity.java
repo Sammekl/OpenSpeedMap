@@ -56,6 +56,11 @@ public class WaysActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.overridePendingTransition(R.anim.left_slide_in, R.anim.left_slide_out);
+    }
 
     // ====================================
     // Private methods

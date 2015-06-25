@@ -2,6 +2,7 @@ package com.sammekl.openspeedmap.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -55,6 +57,11 @@ public class WayViewActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.overridePendingTransition(R.anim.left_slide_in, R.anim.left_slide_out);
+    }
 
     // ====================================
     // Public methods
@@ -68,6 +75,21 @@ public class WayViewActivity extends ActionBarActivity {
         openSpeedMapService.updateSpeed(getActivity(), receivedHighway, xml);
     }
 
+    public void setPositiveDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Update succesful");
+        alert.setMessage("Way with name '" + receivedHighway.getRoadName() + "' has been updated. It can take up to one hour for the changes to take effect");
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.left_slide_out);
+            }
+        });
+        alert.show();
+
+    }
     // ====================================
     // Private methods
     // ====================================
@@ -81,6 +103,16 @@ public class WayViewActivity extends ActionBarActivity {
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(Constants.PREF_OSM_WAY_DISPLAY_URL + receivedHighway.getId());
+        final ProgressDialog pd = ProgressDialog.show(this, "", "Loading " + receivedHighway.getRoadName() + "...", true);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (pd.isShowing() && pd != null) {
+                    pd.dismiss();
+                }
+            }
+        });
     }
 
     private void showAlertDialog() {
@@ -117,8 +149,10 @@ public class WayViewActivity extends ActionBarActivity {
         });
         alert.show();
     }
+
     private Activity getActivity() {
         return this;
     }
+
 
 }

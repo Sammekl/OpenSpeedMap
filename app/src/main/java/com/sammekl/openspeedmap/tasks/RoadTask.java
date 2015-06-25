@@ -78,6 +78,7 @@ public class RoadTask extends BackgroundTask {
      */
     @Override
     public void doProcessResult(String result) {
+        showLoadingProgressDialog(activity.getString(R.string.dialog_parsing_data));
         List<Node> nodes = JSONHelper.getNodesFromResult(result);
         if (nodes != null && nodes.size() > 0) {
             TempStorage.setAllNodes(nodes);
@@ -86,9 +87,16 @@ public class RoadTask extends BackgroundTask {
         if (highways != null && highways.size() > 0) {
             TempStorage.setAllHighways(highways);
         }
+        dismissProgressDialog();
         mainActivity.startDisplayActivity();
-
     }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        showLoadingProgressDialog(activity.getString(R.string.dialog_get_ways));
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }

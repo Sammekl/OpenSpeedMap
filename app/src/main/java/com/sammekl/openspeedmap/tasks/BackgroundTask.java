@@ -24,7 +24,6 @@ public abstract class BackgroundTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        showLoadingProgressDialog();
     }
 
     @Override
@@ -46,8 +45,8 @@ public abstract class BackgroundTask extends AsyncTask<Void, Void, String> {
 
     public abstract String doTask();
 
-    private void showLoadingProgressDialog() {
-        this.showProgressDialog(activity.getString(R.string.dialog_get_ways));
+    public void showLoadingProgressDialog(String msg) {
+        this.showProgressDialog(msg);
     }
 
     private void showProgressDialog(CharSequence message) {
@@ -61,7 +60,7 @@ public abstract class BackgroundTask extends AsyncTask<Void, Void, String> {
         progressDialog.show();
     }
 
-    private void dismissProgressDialog() {
+    public void dismissProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }

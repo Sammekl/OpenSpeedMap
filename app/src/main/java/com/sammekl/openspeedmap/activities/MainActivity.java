@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sammekl.openspeedmap.R;
 import com.sammekl.openspeedmap.model.Highway;
@@ -116,6 +117,8 @@ public class MainActivity extends ActionBarActivity {
         if(TempStorage.getAllHighways() != null && TempStorage.getAllHighways().size() > 0 && TempStorage.getAllNodes() != null && TempStorage.getAllNodes().size() > 0) {
             this.startActivity(new Intent(this, WaysActivity.class));
             this.overridePendingTransition(R.anim.right_slide_in, R.anim.right_slide_out);
+        } else {
+            Toast.makeText(this, "No ways found within " + progress + " meters of your location", Toast.LENGTH_SHORT).show();
         }
 
     }
