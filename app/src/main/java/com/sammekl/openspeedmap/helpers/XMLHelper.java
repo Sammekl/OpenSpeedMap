@@ -58,7 +58,7 @@ public class XMLHelper {
         transformer.transform(source, result);
 
         String xmlOutput = result.getWriter().toString();
-        Log.i("XMLHelper",xmlOutput);
+        Log.i("XML To push:",xmlOutput);
 
         return xmlOutput;
     }

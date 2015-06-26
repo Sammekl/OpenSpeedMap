@@ -76,7 +76,7 @@ public class GetHighwayTask extends BackgroundTask {
      */
     @Override
     public void doProcessResult(String result) {
-        Log.e(getClass().getSimpleName(), "Result: " + result);
+        Log.i(getClass().getSimpleName(), "XML from OSM: " + result);
         try {
             String parsed = XMLHelper.parseDom(result, maxspeed);
             wayViewActivity.updateSpeed(parsed);
